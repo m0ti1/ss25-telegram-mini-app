@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090b">
+  <title>SS25 / Manager OS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#training" data-view="training"><span>SS25</span><small>N FOR SALE 25</small></a>
+    <nav class="topnav" aria-label="Разделы">
+      <button class="nav-btn active" data-view="training">TRAINING</button>
+      <button class="nav-btn" data-view="client">CLIENT BOT</button>
+      <button class="nav-btn" data-view="admin">ADMIN</button>
+    </nav>
+    <div class="top-status"><i></i><span id="systemStatus">LOCAL MVP</span></div>
+  </header>
+
+  <main>
+    <section id="training" class="view active-view">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">SS25 / MANAGER TRAINING</p>
+          <h1>14 DAYS<br><em>TO THE FLOOR</em></h1>
+          <p class="lede">Тренажёр для менеджеров: консультация, расчёт, передача клиента и работа в клиентском боте.</p>
+        </div>
+        <div class="progress-card">
+          <div class="card-kicker">CURRENT RUN</div>
+          <div class="big-number"><span id="trainingDayLabel">01</span><b>/14</b></div>
+          <div class="progress-track"><span id="trainingProgress"></span></div>
+          <p id="trainingProgressText">0% программы</p>
+        </div>
+      </div>
+      <div class="section-head"><div><p class="eyebrow">CURRICULUM</p><h2>Маршрут допуска</h2></div><span class="chip" id="trainingState">В ПРОЦЕССЕ</span></div>
+      <div class="day-grid" id="dayGrid"></div>
+      <div class="lesson-panel" id="lessonPanel"></div>
+    </section>
+
+    <section id="client" class="view">
+      <div class="section-head"><div><p class="eyebrow">CUSTOMER BOT / ORDER FLOW</p><h2>Создать заказ</h2></div><span class="chip red">SS25 ORDER</span></div>
+      <div class="split-layout">
+        <form class="panel form-panel" id="orderForm">
+          <div class="form-title">ДАННЫЕ КЛИЕНТА</div>
+          <label>Тип товара<select name="productType" required><option value="обувь">Обувь</option><option value="одежда">Одежда</option><option value="аксессуары">Аксессуары</option><option value="техника">Техника</option></select></label>
+          <label>Модель<input name="model" placeholder="Например, Nike Dunk Low" required></label>
+          <label>Ссылка на Poizon<input name="poizonUrl" type="url" placeholder="https://..." required></label>
+          <div class="form-row"><label>Размер EUR<input name="eurSize" placeholder="42"></label><label>Количество<input name="quantity" type="number" min="1" value="1" required></label></div>
+          <div class="form-row"><label>Город<input name="city" placeholder="Казань" required></label><label>Адрес<input name="address" placeholder="Улица, дом, квартира" required></label></div>
+          <div class="form-row"><label>Товар, ¥<input name="productPrice" type="number" min="0" step="0.01" placeholder="1200" required></label><label>Доставка, ¥<input name="deliveryPrice" id="deliveryPrice" type="number" min="0" step="0.01" placeholder="100" required></label></div>
+          <label>Тип доставки<select name="deliveryType" id="deliveryType"><option value="standard">Стандартная / 10%</option><option value="express">Быстрая / 15%</option></select></label>
+          <button class="primary-btn" type="submit">РАССЧИТАТЬ И СОЗДАТЬ</button>
+        </form>
+        <div class="panel order-preview" id="orderPreview"><div class="empty-state"><span>+</span><p>Заполните карточку заказа.<br>Расчёт появится здесь.</p></div></div>
+      </div>
+      <div class="panel status-panel" id="orderStatusPanel" hidden></div>
+    </section>
+
+    <section id="admin" class="view">
+      <div class="section-head"><div><p class="eyebrow">CONTROL ROOM</p><h2>Админ-панель</h2></div><span class="chip">ADMIN ACCESS</span></div>
+      <div class="metric-grid" id="adminMetrics"></div>
+      <div class="admin-grid">
+        <div class="panel">
+          <div class="panel-head"><div><div class="form-title">ТАРИФЫ И ПРАВИЛА</div><p class="muted">Изменения сразу используются в расчёте.</p></div></div>
+          <form id="settingsForm" class="settings-form">
+            <label>Курс ¥ → ₽<input name="rate" type="number" min="0" step="0.01"></label>
+            <label>Стандартная комиссия, %<input name="standard" type="number" min="0" step="0.1"></label>
+            <label>Быстрая комиссия, %<input name="express" type="number" min="0" step="0.1"></label>
+            <label>Округление, ₽<input name="rounding" type="number" min="1" step="1"></label>
+            <button class="secondary-btn" type="submit">СОХРАНИТЬ НАСТРОЙКИ</button>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><div class="form-title">ЗАКАЗЫ</div><p class="muted">Поток клиентского бота</p></div><button class="text-btn" id="clearOrders">Очистить демо</button></div>
+          <div id="ordersList" class="orders-list"></div>
+        </div>
+      </div>
+      <div class="panel review-panel"><div class="panel-head"><div><div class="form-title">ПРОВЕРКА ОБУЧЕНИЯ</div><p class="muted">Все администраторы видят очередь. SLA: 24 часа.</p></div><span class="chip red" id="reviewCount">0 NEW</span></div><div id="reviewList" class="review-list"></div></div>
+    </section>
+  </main>
+  <footer><span>SS25 / N FOR SALE 25</span><span>ХРОМ. ГОТИКА. РОК-Н-РОЛЛ.</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

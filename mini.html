@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#08090b">
+  <title>SS25 Mini App</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js?64"></script>
+</head>
+<body class="mini-body">
+  <main class="mini-shell">
+    <header class="mini-header"><div><p class="eyebrow">SS25 / TELEGRAM MINI APP</p><h1 id="miniTitle">Загрузка</h1></div><span id="miniRole" class="chip">CHECKING</span></header>
+    <div id="miniNotice" class="mini-notice" hidden></div>
+    <section id="trainingView" hidden>
+      <div class="mini-progress"><strong id="progressLabel">0/14</strong><span><i id="progressBar"></i></span><small id="progressState"></small></div>
+      <div id="days" class="mini-days"></div>
+      <article class="mini-card"><p class="eyebrow" id="taskDay">DAY 01</p><h2 id="taskTitle"></h2><p id="taskText"></p><textarea id="answer" placeholder="Напишите ответ для менеджера проверки"></textarea><button id="submitTask" class="primary-btn">Отправить на проверку</button><p id="submitState" class="muted"></p></article>
+    </section>
+    <section id="clientView" hidden><div class="mini-card"><p class="eyebrow">SS25 / ORDER</p><h2>Новый заказ</h2><form id="miniOrderForm" class="mini-form"><label>Тип товара<select name="product_type"><option>обувь</option><option>одежда</option><option>аксессуары</option><option>техника</option></select></label><label>Модель<input name="model" required></label><label>Ссылка Poizon<input name="poizon_url" type="url" required></label><div class="form-row"><label>Размер EUR<input name="eur_size"></label><label>Количество<input name="quantity" type="number" min="1" value="1" required></label></div><label>Город<input name="city" required></label><label>Адрес<input name="address" required></label><div class="form-row"><label>Товар, ¥<input name="product_price_cny" type="number" step="0.01" required></label><label>Доставка, ¥<input name="delivery_price_cny" type="number" step="0.01" required></label></div><label>Тип доставки<select name="delivery_type"><option value="standard">Стандартная / 10%</option><option value="express">Быстрая / 15%</option></select></label><button class="primary-btn">Рассчитать и создать заказ</button></form><div id="orderResult"></div></div><div class="mini-card"><h2>Мои заказы</h2><div id="orders"></div></div></section>
+    <section id="adminView" hidden><div class="mini-card"><div class="panel-head"><div><p class="eyebrow">ADMIN REVIEW QUEUE</p><h2>Проверка заданий</h2></div><button id="reloadReviews" class="secondary-btn">Обновить</button></div><div id="reviews"></div></div></section>
+  </main><script src="/mini.js"></script>
+</body></html>
