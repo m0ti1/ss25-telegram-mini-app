@@ -1,0 +1,20 @@
+﻿name: Configure Telegram Mini Apps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Mini App menu buttons
+        env:
+          CLIENT_TOKEN: ${{ secrets.SS25_CLIENT_BOT_TOKEN }}
+          TRAINING_TOKEN: ${{ secrets.SS25_TRAINING_BOT_TOKEN }}
+          MINI_URL: https://m0ti1.github.io/ss25-telegram-mini-app/mini.html
+        run: |
+          set -euo pipefail
+          curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${CLIENT_TOKEN}/setChatMenuButton" \
+            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть заказ","web_app":{"url":"'"${MINI_URL}"'?client=1"}}'
+          curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TRAINING_TOKEN}/setChatMenuButton" \
+            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть обучение","web_app":{"url":"'"${MINI_URL}"'"}}'
