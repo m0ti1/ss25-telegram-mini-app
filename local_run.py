@@ -56,6 +56,11 @@ def configure_mini_app(token: str, url: str, text: str) -> None:
     telegram_call(token, "setChatMenuButton", {"menu_button": json.dumps({"type": "web_app", "text": text, "web_app": {"url": url}})})
 
 
+def with_query(url: str, key: str, value: str) -> str:
+    separator = "&" if "?" in url else "?"
+    return f"{url}{separator}{urllib.parse.urlencode({key: value})}"
+
+
 def poll(name: str, token: str, kind: str) -> None:
     offset = 0
     try:
@@ -94,10 +99,13 @@ def main() -> None:
         print(f"[training] Telegram check failed; local API will still start: {exc}")
     mini_url = os.getenv("SS25_MINI_APP_URL", "")
     if mini_url.startswith("https://"):
-        for name, token, label in (("client", client_token, "Открыть заказ"), ("training", training_token, "Открыть обучение")):
+        for name, token, label, url in (
+            ("client", client_token, "Открыть заказ", with_query(mini_url, "client", "1")),
+            ("training", training_token, "Открыть обучение", mini_url),
+        ):
             try:
-                configure_mini_app(token, mini_url, label)
-                print(f"[{name}] Mini App menu configured: {mini_url}")
+                configure_mini_app(token, url, label)
+                print(f"[{name}] Mini App menu configured: {url}")
             except Exception as exc:
                 print(f"[{name}] Mini App menu setup failed: {exc}")
     http = server.ThreadingHTTPServer((server.HOST, server.PORT), server.Handler)
