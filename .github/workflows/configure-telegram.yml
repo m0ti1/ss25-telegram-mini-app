@@ -15,6 +15,6 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${CLIENT_TOKEN}/setChatMenuButton" \
-            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть заказ","web_app":{"url":"'"${MINI_URL}"'?client=1"}}'
+            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть заказ","web_app":{"url":"'"${MINI_URL}"'?client=1&v=2"}}'
           curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TRAINING_TOKEN}/setChatMenuButton" \
-            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть обучение","web_app":{"url":"'"${MINI_URL}"'"}}'
+            --data-urlencode 'menu_button={"type":"web_app","text":"Открыть обучение","web_app":{"url":"'"${MINI_URL}"'?v=2"}}'
